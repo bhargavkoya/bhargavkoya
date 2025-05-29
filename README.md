@@ -7,10 +7,10 @@
   <img src="https://github.com/lassiecoder/lassiecoder/assets/17312616/2ae4d51a-1aae-45b9-86ae-75d01eb6e446" align="right" width="35%" alt="Image">
 </picture>
 
-💻 I am Bhargava Koya, a Full Stack Developer, UIUX Designer specializing in designing and building intuitive, high-performing applications. 
+💻 I am Bhargava Koya, a Full Stack Developer specializing in designing and building intuitive, high-performing applications. 
 
 
-🌟Passionate about Backend, problem-solving, and mentoring, I focus on delivering seamless experiences and innovative solutions while adapting to emerging technologies.
+🌟Passionate about Backend, problem-solving, and travelling, I focus on delivering seamless experiences and innovative solutions while adapting to emerging technologies.
 
 <h3>I know</h3>
 <div align="center">
