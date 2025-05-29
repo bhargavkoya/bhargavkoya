@@ -1,7 +1,7 @@
 <tr>
    <p align="top"> <img src="https://komarev.com/ghpvc/?username=GantaVenkataKousik&label=Profile%20views&color=36363b&style=flat" alt="BhargavaKoya" /></p>
   </tr>
-<h2 align="center">Hi 👋! I'm Bhagava Koya✨<br>Developer | Entrepreneur | Programmer</h2>
+<h2 align="center">Hi 👋! I'm Bhargava Koya✨<br>Developer | Entrepreneur | Programmer</h2>
 
 <picture>
   <img src="https://github.com/lassiecoder/lassiecoder/assets/17312616/2ae4d51a-1aae-45b9-86ae-75d01eb6e446" align="right" width="35%" alt="Image">
