@@ -1,6 +1,3 @@
-<tr>
-   <p align="top"> <img src="https://komarev.com/ghpvc/?username=bhargavkoya&label=Profile%20views&color=36363b&style=flat" alt="BhargavaKoya" /></p>
-  </tr>
 <h2 align="center">Hi 👋! I'm Bhargava Koya✨<br>Developer | Entrepreneur | Programmer</h2>
 
 <picture>
