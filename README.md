@@ -76,3 +76,11 @@
 ![](https://github-readme-streak-stats.herokuapp.com/?user=bhargavkoya&theme=light&hide_border=false)<br/>
 
 #### 🚀 Let's connect and collaborate!   <img src="https://cultofthepartyparrot.com/parrots/hd/laptop_parrot.gif" width="35" height="35"/>
+
+&nbsp;![](https://komarev.com/ghpvc/?username=bhargavkoya&color=brightgreen)
+<p align="center">
+<img
+  src="https://github-statspro.vercel.app/api/stats/bhargavkoya?theme=default"
+  alt="Stats Card"
+/>
+</p>
