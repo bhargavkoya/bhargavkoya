@@ -66,10 +66,6 @@
 [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/bhargava-koya7/)
 [![Gmail](https://img.shields.io/badge/-Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:bhargavakoya77@gmail.com)
 
-###
-[![Bhargav's GitHub stats](https://github-readme-stats.vercel.app/api?username=bhargavkoya)](https://github.com/anuraghazra/github-readme-stats)
-
-
 ![](https://github-readme-streak-stats.herokuapp.com/?user=bhargavkoya&theme=light&hide_border=false)<br/>
 
 #### 🚀 Let's connect and collaborate!   <img src="https://cultofthepartyparrot.com/parrots/hd/laptop_parrot.gif" width="35" height="35"/>
