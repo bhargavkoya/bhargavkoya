@@ -37,3 +37,7 @@ JobScheduler walkthrough: https://youtu.be/96mlakVsfT0
 | [MyMediumTechBlogs](https://github.com/bhargavkoya/MyMediumTechBlogs) | POCs behind my tech blog posts |
 | [JwtAuthenticationImplementations](https://github.com/bhargavkoya/JwtAuthenticationImplementations) | JWT auth with access and refresh tokens |
 | [MS_In_AI_Projects](https://github.com/bhargavkoya/MS_In_AI_Projects) | Projects from my MS in AI program |
+
+<p align="center">
+  <img src="https://github-statspro.vercel.app/api/stats/bhargavkoya?theme=default" alt="GitHub stats" />
+</p>
