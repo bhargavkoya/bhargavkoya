@@ -61,6 +61,40 @@
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg" height="30" alt="npm logo" />
 </div>
 
+### 🚀 Main Projects
+
+| Project | What it is | Stack |
+|---|---|---|
+| [AuditTrailSystem (AuditFlow)](https://github.com/bhargavkoya/AuditTrailSystem) | Backend-controlled audit engagement management platform, a demoable microservices skeleton with CI. | C# / .NET |
+| [JobScheduler](https://github.com/bhargavkoya/JobScheduler) | Job scheduling and orchestration: fixed, cron and event-based schedules, queued pipelines, retries, claim-based access. | C# / .NET |
+| [Metrics](https://github.com/bhargavkoya/Metrics) | Automation metrics dashboard with typed and formula metrics, logs and trend charts. | C# / .NET |
+| [AgriIntel](https://github.com/bhargavkoya/AgriIntel) | AI-powered agricultural decision support (MSc thesis) using deep learning, ML and LLMs. | Python / TensorFlow |
+| [DocWorkflowAiAssistant](https://github.com/bhargavkoya/DocWorkflowAiAssistant) | Document workflow AI assistant with Semantic Kernel, OpenAI and a React front end. | .NET 8 / React |
+| [MultiModalDesktopControl](https://github.com/bhargavkoya/MultiModalDesktopControl) | Multi-modal desktop control. | Python |
+| [AppointmentScheduler](https://github.com/bhargavkoya/AppointmentScheduler) | Full-stack appointment scheduling app. | C# / .NET |
+| [DatingApp](https://github.com/bhargavkoya/DatingApp) | Full-stack dating app. | C# / .NET |
+| [Restaurants](https://github.com/bhargavkoya/Restaurants) | Restaurants application. | C# / SQL |
+| [Mango](https://github.com/bhargavkoya/Mango) | Full-stack application. | C# / .NET |
+
+JobScheduler walkthrough: https://youtu.be/96mlakVsfT0
+
+### 📚 Interview Prep & Learning
+
+| Repo | Focus |
+|---|---|
+| [cs_fundamentals_interview_prep](https://github.com/bhargavkoya/cs_fundamentals_interview_prep) | DSA patterns with examples for each pattern |
+| [DataStructuresAndAlgorithms](https://github.com/bhargavkoya/DataStructuresAndAlgorithms) | Data structures and algorithms with problems |
+| [fullstack_dotnet_development_revision](https://github.com/bhargavkoya/fullstack_dotnet_development_revision) | Key concepts and samples of the .NET tech stack |
+| [AI_Dotnet_Integration_Engineer_Learnings](https://github.com/bhargavkoya/AI_Dotnet_Integration_Engineer_Learnings) | POCs integrating AI concepts into .NET |
+| [AI_Engineer_Learnings](https://github.com/bhargavkoya/AI_Engineer_Learnings) | AI engineering notes |
+| [FundamentalsOfBackendEngineering](https://github.com/bhargavkoya/FundamentalsOfBackendEngineering) | Sample implementations of backend concepts |
+| [AzureLearningsWithPOCS](https://github.com/bhargavkoya/AzureLearningsWithPOCS) | Azure services learnings and demos |
+| [MyMediumTechBlogs](https://github.com/bhargavkoya/MyMediumTechBlogs) | POCs behind my tech blog posts |
+| [JwtAuthenticationImplementations](https://github.com/bhargavkoya/JwtAuthenticationImplementations) | JWT auth with access and refresh tokens |
+| [MS_In_AI_Projects](https://github.com/bhargavkoya/MS_In_AI_Projects) | Projects from my MS in AI program |
+
+🌐 **Portfolio site:** https://bhargavkoya.github.io/bhargavkoya/
+
 ### _**You can find me on:**_
 
 [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/bhargava-koya7/)
