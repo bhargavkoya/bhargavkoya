@@ -1,52 +1,230 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Bhargava Koya</title>
 <meta name="description" content="Full Stack Developer. Projects and interview prep material.">
 <style>
-:root{--bg:#ffffff;--fg:#111111;--muted:#6b6b6b;--line:#e8e8e8;--accent:#111111}
-@media(prefers-color-scheme:dark){:root{--bg:#0e0e0e;--fg:#f2f2f2;--muted:#8d8d8d;--line:#242424;--accent:#f2f2f2}}
+:root{--bg:#ffffff;--fg:#111;--muted:#6b6b6b;--line:#e8e8e8;--glow:rgba(13,148,136,.14);--accent:#0d9488}
+:root[data-theme="dark"]{--bg:#0c0c0c;--fg:#f2f2f2;--muted:#8d8d8d;--line:#242424;--glow:rgba(45,212,191,.12);--accent:#2dd4bf}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c0c0c;--fg:#f2f2f2;--muted:#8d8d8d;--line:#242424;--glow:rgba(45,212,191,.12);--accent:#2dd4bf}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 -apple-system,"Segoe UI",Inter,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
-main{max-width:720px;margin:0 auto;padding:96px 16px 80px}
-h1{font-size:2rem;font-weight:600;letter-spacing:-.02em;margin:0 0 12px}
-.lead{color:var(--muted);margin:0 0 20px;max-width:56ch}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 -apple-system,"Segoe UI",Inter,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+#glow{position:fixed;inset:0;pointer-events:none;background:radial-gradient(500px circle at var(--x,50%) var(--y,0%),var(--glow),transparent 60%);z-index:0}
+main{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:72px 16px 96px}
 a{color:inherit}
-.links a{margin-right:20px;text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:1px}
-.links a:hover{border-color:var(--fg)}
-h2{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:72px 0 8px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:72px}
+.mark{font-weight:600;letter-spacing:-.01em;text-decoration:none}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:.8rem;cursor:pointer;transition:.2s}
+#theme:hover{color:var(--fg);border-color:var(--fg)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);font-weight:600;letter-spacing:-.03em;line-height:1.1;margin:0 0 16px}
+.role{font-size:1.25rem;color:var(--muted);min-height:1.9em;margin:0 0 20px}
+.role b{color:var(--accent);font-weight:500}
+.caret{display:inline-block;width:2px;height:1.05em;background:var(--accent);margin-left:2px;vertical-align:-3px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.lead{color:var(--muted);max-width:56ch;margin:0 0 24px}
+.links a{margin-right:20px;text-decoration:none;background:linear-gradient(var(--accent),var(--accent)) 0 100%/0 1px no-repeat;padding-bottom:2px;border-bottom:1px solid var(--line);transition:background-size .25s}
+.links a:hover{background-size:100% 1px}
+.stats{display:flex;gap:40px;margin:56px 0 0;padding:24px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat b{display:block;font-size:1.8rem;font-weight:600;letter-spacing:-.02em}
+.stat span{color:var(--muted);font-size:.8rem}
+h2{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:72px 0 16px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+#q{flex:1 1 200px;background:none;border:1px solid var(--line);border-radius:8px;padding:8px 12px;color:var(--fg);font:inherit;font-size:.92rem;outline:none;transition:border-color .2s}
+#q:focus{border-color:var(--accent)}
+.chip{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font:inherit;font-size:.8rem;cursor:pointer;transition:.2s}
+.chip:hover{color:var(--fg);border-color:var(--fg)}
+.chip.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .list{border-top:1px solid var(--line)}
-.row{display:grid;grid-template-columns:240px 1fr auto;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none}
-.name{font-weight:500;overflow-wrap:anywhere}
-.desc{color:var(--muted);font-size:.92rem}
+.item{border-bottom:1px solid var(--line);opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s}
+.item.in{opacity:1;transform:none}
+.item.hide{display:none}
+.head{width:100%;display:grid;grid-template-columns:1fr auto 20px;gap:16px;align-items:baseline;padding:16px 0;background:none;border:0;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.name{font-weight:500;overflow-wrap:anywhere;transition:transform .25s,color .25s}
+.head:hover .name{transform:translateX(6px);color:var(--accent)}
 .tag{color:var(--muted);font-size:.8rem;white-space:nowrap}
-.row:hover .name{text-decoration:underline;text-underline-offset:4px}
-@media(max-width:640px){main{padding-top:56px}.row{grid-template-columns:1fr;gap:2px}}
-</style></head><body><main>
-<h1>Bhargava Koya</h1>
-<p class="lead">Full Stack Developer focused on backend engineering, problem solving and building intuitive, high-performing applications. C#, .NET, Python, JavaScript, React, Angular and Azure.</p>
-<p class="links"><a href="https://github.com/bhargavkoya">GitHub</a><a href="https://www.linkedin.com/in/bhargava-koya7/">LinkedIn</a><a href="mailto:bhargavakoya77@gmail.com">Email</a></p>
-<h2>Projects</h2><div class="list">
-<a class="row" href="https://github.com/bhargavkoya/AuditTrailSystem"><span class="name">AuditTrailSystem</span><span class="desc">Audit engagement management platform. A demoable microservices skeleton with CI.</span><span class="tag">C# / .NET</span></a>
-<a class="row" href="https://github.com/bhargavkoya/JobScheduler"><span class="name">JobScheduler</span><span class="desc">Job scheduling and orchestration with cron and event-based schedules, retries and claim-based access.</span><span class="tag">C# / .NET</span></a>
-<a class="row" href="https://github.com/bhargavkoya/Metrics"><span class="name">Metrics</span><span class="desc">Automation metrics dashboard with typed and formula metrics, logs and trend charts.</span><span class="tag">C# / .NET</span></a>
-<a class="row" href="https://github.com/bhargavkoya/AgriIntel"><span class="name">AgriIntel</span><span class="desc">AI-powered agricultural decision support combining deep learning, ML and LLMs. MSc thesis.</span><span class="tag">Python / TensorFlow</span></a>
-<a class="row" href="https://github.com/bhargavkoya/DocWorkflowAiAssistant"><span class="name">DocWorkflowAiAssistant</span><span class="desc">Document workflow assistant built on Semantic Kernel and OpenAI, with a React front end.</span><span class="tag">.NET 8 / React</span></a>
-<a class="row" href="https://github.com/bhargavkoya/MultiModalDesktopControl"><span class="name">MultiModalDesktopControl</span><span class="desc">Multi-modal desktop control.</span><span class="tag">Python</span></a>
-<a class="row" href="https://github.com/bhargavkoya/AppointmentScheduler"><span class="name">AppointmentScheduler</span><span class="desc">Appointment scheduling application.</span><span class="tag">C# / .NET</span></a>
-<a class="row" href="https://github.com/bhargavkoya/DatingApp"><span class="name">DatingApp</span><span class="desc">Full-stack dating application.</span><span class="tag">C# / .NET</span></a>
-<a class="row" href="https://github.com/bhargavkoya/Restaurants"><span class="name">Restaurants</span><span class="desc">Restaurants application.</span><span class="tag">C# / SQL</span></a>
-<a class="row" href="https://github.com/bhargavkoya/Mango"><span class="name">Mango</span><span class="desc">Full-stack application.</span><span class="tag">C# / .NET</span></a>
-</div>
-<h2>Interview prep and learning</h2><div class="list">
-<a class="row" href="https://github.com/bhargavkoya/cs_fundamentals_interview_prep"><span class="name">cs_fundamentals_interview_prep</span><span class="desc">DSA patterns with examples for each pattern</span></a>
-<a class="row" href="https://github.com/bhargavkoya/DataStructuresAndAlgorithms"><span class="name">DataStructuresAndAlgorithms</span><span class="desc">Data structures and algorithms with problems</span></a>
-<a class="row" href="https://github.com/bhargavkoya/fullstack_dotnet_development_revision"><span class="name">fullstack_dotnet_development_revision</span><span class="desc">Key concepts and samples of the .NET stack</span></a>
-<a class="row" href="https://github.com/bhargavkoya/AI_Dotnet_Integration_Engineer_Learnings"><span class="name">AI_Dotnet_Integration_Engineer_Learnings</span><span class="desc">POCs integrating AI concepts into .NET</span></a>
-<a class="row" href="https://github.com/bhargavkoya/AI_Engineer_Learnings"><span class="name">AI_Engineer_Learnings</span><span class="desc">AI engineering notes</span></a>
-<a class="row" href="https://github.com/bhargavkoya/FundamentalsOfBackendEngineering"><span class="name">FundamentalsOfBackendEngineering</span><span class="desc">Sample implementations of backend concepts</span></a>
-<a class="row" href="https://github.com/bhargavkoya/AzureLearningsWithPOCS"><span class="name">AzureLearningsWithPOCS</span><span class="desc">Azure services learnings and demos</span></a>
-<a class="row" href="https://github.com/bhargavkoya/MyMediumTechBlogs"><span class="name">MyMediumTechBlogs</span><span class="desc">POCs behind my tech blog posts</span></a>
-<a class="row" href="https://github.com/bhargavkoya/JwtAuthenticationImplementations"><span class="name">JwtAuthenticationImplementations</span><span class="desc">JWT auth with access and refresh tokens</span></a>
-<a class="row" href="https://github.com/bhargavkoya/MS_In_AI_Projects"><span class="name">MS_In_AI_Projects</span><span class="desc">Projects from my MS in AI program</span></a>
-</div>
-</main></body></html>
+.plus{color:var(--muted);transition:transform .3s;text-align:center}
+.item.open .plus{transform:rotate(45deg)}
+.body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s}
+.item.open .body{grid-template-rows:1fr}
+.body>div{overflow:hidden}
+.body p{margin:0 0 12px;color:var(--muted);font-size:.95rem;max-width:58ch}
+.meta{display:flex;gap:16px;flex-wrap:wrap;align-items:center;padding-bottom:16px;font-size:.85rem}
+.meta a{text-decoration:none;border-bottom:1px solid var(--accent);color:var(--accent)}
+.meta span{color:var(--muted)}
+.empty{display:none;color:var(--muted);padding:24px 0}
+footer{margin-top:96px;color:var(--muted);font-size:.8rem}
+kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px;font:inherit;font-size:.75rem}
+@media(max-width:560px){.stats{gap:24px}.head{grid-template-columns:1fr 20px}.tag{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.item{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="glow"></div>
+<main>
+<header>
+  <a class="mark" href="#top">bk</a>
+  <button id="theme" type="button" aria-label="Toggle theme">Theme</button>
+</header>
+
+<section id="top">
+  <h1>Bhargava Koya</h1>
+  <p class="role"><span id="type"></span><span class="caret"></span></p>
+  <p class="lead">Full Stack Developer focused on backend engineering, problem solving and building intuitive, high-performing applications. C#, .NET, Python, JavaScript, React, Angular and Azure.</p>
+  <p class="links"><a href="https://github.com/bhargavkoya">GitHub</a><a href="https://www.linkedin.com/in/bhargava-koya7/">LinkedIn</a><a href="mailto:bhargavakoya77@gmail.com">Email</a></p>
+  <div class="stats">
+    <div class="stat"><b id="s-repos" data-to="35">0</b><span>public repos</span></div>
+    <div class="stat"><b id="s-proj" data-to="10">0</b><span>featured projects</span></div>
+    <div class="stat"><b id="s-learn" data-to="10">0</b><span>learning repos</span></div>
+  </div>
+</section>
+
+<section id="work">
+  <h2>Projects and learning</h2>
+  <div class="tools">
+    <input id="q" type="search" placeholder="Search projects (press / to focus)" autocomplete="off" aria-label="Search">
+    <button class="chip on" data-f="all">All</button>
+    <button class="chip" data-f="project">Projects</button>
+    <button class="chip" data-f="learn">Interview prep</button>
+    <button class="chip" data-f="ai">AI</button>
+    <button class="chip" data-f="dotnet">.NET</button>
+  </div>
+  <div class="list" id="list"></div>
+  <p class="empty" id="empty">Nothing matches that search.</p>
+</section>
+
+<footer>Tip: press <kbd>/</kbd> to search, <kbd>t</kbd> to switch theme.</footer>
+</main>
+
+<script>
+const G = "https://github.com/bhargavkoya/";
+const items = [
+  {n:"AuditTrailSystem", t:["project","dotnet"], s:"C# / .NET", d:"Audit engagement management platform. A demoable microservices skeleton with CI."},
+  {n:"JobScheduler", t:["project","dotnet"], s:"C# / .NET", d:"Job scheduling and orchestration with fixed, cron and event-based schedules, queued pipelines, retries and claim-based access.", extra:{label:"Watch the walkthrough", url:"https://youtu.be/96mlakVsfT0"}},
+  {n:"Metrics", t:["project","dotnet"], s:"C# / .NET", d:"Automation metrics dashboard with typed and formula metrics, logs and trend charts."},
+  {n:"AgriIntel", t:["project","ai"], s:"Python / TensorFlow", d:"AI-powered agricultural decision support combining deep learning, ML and LLMs. MSc thesis."},
+  {n:"DocWorkflowAiAssistant", t:["project","ai","dotnet"], s:".NET 8 / React", d:"Document workflow assistant built on Semantic Kernel and OpenAI, with a React front end."},
+  {n:"MultiModalDesktopControl", t:["project","ai"], s:"Python", d:"Multi-modal desktop control."},
+  {n:"AppointmentScheduler", t:["project","dotnet"], s:"C# / .NET", d:"Appointment scheduling application."},
+  {n:"DatingApp", t:["project","dotnet"], s:"C# / .NET", d:"Full-stack dating application."},
+  {n:"Restaurants", t:["project","dotnet"], s:"C# / SQL", d:"Restaurants application."},
+  {n:"Mango", t:["project","dotnet"], s:"C# / .NET", d:"Full-stack application."},
+  {n:"cs_fundamentals_interview_prep", t:["learn"], s:"C#", d:"DSA patterns with examples for each pattern."},
+  {n:"DataStructuresAndAlgorithms", t:["learn"], s:"C#", d:"Data structures and algorithms with problems."},
+  {n:"fullstack_dotnet_development_revision", t:["learn","dotnet"], s:"C#", d:"Key concepts and samples of the .NET stack."},
+  {n:"AI_Dotnet_Integration_Engineer_Learnings", t:["learn","ai","dotnet"], s:"C#", d:"POCs integrating AI concepts into .NET."},
+  {n:"AI_Engineer_Learnings", t:["learn","ai"], s:"Notes", d:"AI engineering notes."},
+  {n:"FundamentalsOfBackendEngineering", t:["learn"], s:"JavaScript", d:"Sample implementations of backend concepts."},
+  {n:"AzureLearningsWithPOCS", t:["learn","dotnet"], s:"C#", d:"Azure services learnings and demos."},
+  {n:"MyMediumTechBlogs", t:["learn","dotnet"], s:"C#", d:"POCs behind my tech blog posts."},
+  {n:"JwtAuthenticationImplementations", t:["learn","dotnet"], s:"C#", d:"JWT auth with access and refresh tokens."},
+  {n:"MS_In_AI_Projects", t:["learn","ai"], s:"Jupyter", d:"Projects from my MS in AI program."}
+];
+
+const $ = s => document.querySelector(s);
+const list = $("#list");
+
+// build list
+items.forEach(it => {
+  const el = document.createElement("div");
+  el.className = "item";
+  el.dataset.name = (it.n + " " + it.d + " " + it.s).toLowerCase();
+  el.dataset.tags = it.t.join(" ");
+  const extra = it.extra ? `<a href="${it.extra.url}">${it.extra.label}</a>` : "";
+  el.innerHTML = `<button class="head" aria-expanded="false"><span class="name">${it.n}</span><span class="tag">${it.s}</span><span class="plus">+</span></button>
+  <div class="body"><div><p>${it.d}</p><div class="meta"><a href="${G}${it.n}">View repository</a>${extra}<span class="live" data-repo="${it.n}"></span></div></div></div>`;
+  el.querySelector(".head").addEventListener("click", e => {
+    const open = el.classList.toggle("open");
+    e.currentTarget.setAttribute("aria-expanded", open);
+  });
+  list.appendChild(el);
+});
+
+// reveal on scroll
+const io = new IntersectionObserver(es => es.forEach((e, i) => {
+  if (e.isIntersecting) { setTimeout(() => e.target.classList.add("in"), (i % 6) * 50); io.unobserve(e.target); }
+}), {threshold: .05});
+document.querySelectorAll(".item").forEach(el => io.observe(el));
+
+// search and filter
+let filter = "all";
+function apply() {
+  const q = $("#q").value.trim().toLowerCase();
+  let shown = 0;
+  document.querySelectorAll(".item").forEach(el => {
+    const ok = (filter === "all" || el.dataset.tags.split(" ").includes(filter)) && el.dataset.name.includes(q);
+    el.classList.toggle("hide", !ok);
+    if (ok) { shown++; el.classList.add("in"); }
+  });
+  $("#empty").style.display = shown ? "none" : "block";
+}
+$("#q").addEventListener("input", apply);
+document.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => {
+  document.querySelectorAll(".chip").forEach(x => x.classList.remove("on"));
+  c.classList.add("on"); filter = c.dataset.f; apply();
+}));
+
+// typing roles
+const roles = ["Full Stack Developer", "Backend engineer", "AI integration builder", "Lifelong learner"];
+let r = 0, c = 0, del = false;
+const typeEl = $("#type");
+(function tick() {
+  const w = roles[r];
+  typeEl.textContent = w.slice(0, c);
+  if (!del && c < w.length) { c++; setTimeout(tick, 70); }
+  else if (!del) { del = true; setTimeout(tick, 1400); }
+  else if (c > 0) { c--; setTimeout(tick, 35); }
+  else { del = false; r = (r + 1) % roles.length; setTimeout(tick, 250); }
+})();
+
+// cursor glow
+addEventListener("pointermove", e => {
+  document.documentElement.style.setProperty("--x", e.clientX + "px");
+  document.documentElement.style.setProperty("--y", e.clientY + "px");
+});
+
+// count up
+function count(el) {
+  const to = +el.dataset.to; let n = 0;
+  const step = () => { n += Math.max(1, Math.round(to / 30)); if (n >= to) n = to; el.textContent = n; if (n < to) requestAnimationFrame(step); };
+  step();
+}
+const so = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { count(e.target); so.unobserve(e.target); } }));
+document.querySelectorAll(".stat b:not(#s-repos)").forEach(b => so.observe(b));
+
+// live data from GitHub, silently skipped if unavailable
+fetch("https://api.github.com/users/bhargavkoya/repos?per_page=100&sort=pushed")
+  .then(r => r.ok ? r.json() : Promise.reject())
+  .then(repos => {
+    $("#s-repos").dataset.to = repos.length;
+    const by = Object.fromEntries(repos.map(x => [x.name, x]));
+    document.querySelectorAll(".live").forEach(s => {
+      const x = by[s.dataset.repo];
+      if (!x) return;
+      const d = new Date(x.pushed_at).toLocaleDateString(undefined, {month: "short", year: "numeric"});
+      s.textContent = "Updated " + d + (x.stargazers_count ? " · " + x.stargazers_count + " stars" : "");
+    });
+  }).catch(() => {}).finally(() => count($("#s-repos")));
+
+// theme
+const root = document.documentElement;
+function toggleTheme() {
+  const dark = getComputedStyle(root).getPropertyValue("--bg").trim() === "#0c0c0c";
+  const next = dark ? "light" : "dark";
+  root.dataset.theme = next;
+  try { localStorage.setItem("theme", next); } catch (e) {}
+}
+try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+$("#theme").addEventListener("click", toggleTheme);
+
+// keyboard shortcuts
+addEventListener("keydown", e => {
+  if (e.target.matches("input") || e.metaKey || e.ctrlKey) return;
+  if (e.key === "/") { e.preventDefault(); $("#q").focus(); }
+  if (e.key === "t") toggleTheme();
+});
+</script>
+</body>
+</html>
