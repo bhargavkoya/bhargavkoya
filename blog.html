@@ -180,24 +180,35 @@ footer{padding:28px 0 48px;display:flex;justify-content:space-between;gap:12px;f
 .more{margin-top:36px}
 
 .post-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(24px,4vw,56px);margin-top:8px}
-.post-grid.has-toc{grid-template-columns:minmax(0,1fr) 250px}
+.post-grid.has-toc{grid-template-columns:minmax(0,1fr) 300px}
 .post-main{min-width:0}
-.toc{position:sticky;top:84px;align-self:start;max-height:calc(100vh - 110px);overflow:auto;border-left:1px solid var(--line);padding:4px 0 4px 18px;margin-top:32px}
-.toc .mono{display:block;margin-bottom:10px}
-.toc a{display:block;padding:6px 0;font-size:13.5px;line-height:1.4;color:var(--muted);text-decoration:none}
-.toc a:hover{color:var(--ink)}
-.toc a.on{color:var(--accent);font-weight:600}
+.toc{position:sticky;top:84px;align-self:start;margin-top:32px;display:flex;flex-direction:column;max-height:calc(100vh - 110px);border:1px solid var(--line);border-radius:16px;background:var(--bg);overflow:hidden}
+.toc-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 18px 14px;border-bottom:1px solid var(--line)}
+.toc-head .mono{display:block;color:var(--ink);font-weight:500}
+.toc-head small{display:block;margin-top:6px;font-size:13px;color:var(--muted)}
+.toc-list{position:relative;overflow:auto;padding:8px;scrollbar-width:thin}
+.toc-list a{display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:baseline;padding:9px 10px;border-radius:10px;border-left:3px solid transparent;font-size:14px;line-height:1.4;color:var(--muted);text-decoration:none}
+.toc-list a i{font:normal 500 11.5px var(--mono);color:var(--muted)}
+.toc-list a:hover{color:var(--ink);background:var(--accent-soft)}
+.toc-list a.on{color:var(--ink);font-weight:600;background:var(--accent-soft);border-left-color:var(--accent)}
+.toc-list a.on i{color:var(--accent)}
+
 @media (max-width:980px){.post-grid.has-toc{grid-template-columns:minmax(0,1fr)}.toc{display:none}}
 .post-view section.sheet{overflow:visible}
-#rp{position:fixed;right:clamp(12px,2vw,28px);top:50%;transform:translateY(-50%);width:64px;height:64px;z-index:30;border:0;padding:0;border-radius:50%;background:var(--panel);box-shadow:0 2px 14px rgba(0,0,0,.14);cursor:pointer;color:var(--ink)}
-#rp svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
-#rp circle{fill:none;stroke-width:4}
-#rp .tr{stroke:var(--line)}
-#rp .pg{stroke:var(--accent);stroke-linecap:round;stroke-dasharray:157.08;stroke-dashoffset:157.08;transition:stroke-dashoffset .12s linear}
-#rp b{position:absolute;inset:0;display:grid;place-items:center;font:500 12px var(--mono)}
-#rp:hover{border-color:var(--accent)}
-#rp.done .pg{stroke:var(--good)}
-@media (max-width:640px){#rp{width:52px;height:52px;top:auto;bottom:16px;transform:none}#rp b{font-size:11px}}
+.rp{position:fixed;right:clamp(12px,2vw,28px);top:50%;transform:translateY(-50%);width:64px;height:64px;z-index:30;border:0;padding:0;border-radius:50%;background:var(--panel);box-shadow:0 2px 14px rgba(0,0,0,.14);cursor:pointer;color:var(--ink)}
+.rp svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.rp circle{fill:none;stroke-width:4}
+.rp .tr{stroke:var(--line)}
+.rp .pg{stroke:var(--accent);stroke-linecap:round;stroke-dasharray:157.08;stroke-dashoffset:157.08;transition:stroke-dashoffset .12s linear}
+.rp b{position:absolute;inset:0;display:grid;place-items:center;font:500 12px var(--mono)}
+.rp:hover{border-color:var(--accent)}
+.rp.in{position:relative;transform:none;width:48px;height:48px;flex:none;box-shadow:none;border:0;background:transparent}
+.rp.in b{font-size:11.5px;font-weight:700}
+.rp.in circle{stroke-width:4}
+@media (min-width:981px){.has-toc-page .rp.fx{display:none}}
+@media (max-width:980px){.rp.in{display:none}}
+.rp.done .pg{stroke:var(--good)}
+@media (max-width:640px){.rp.fx{width:52px;height:52px;top:auto;bottom:16px;transform:none}.rp b{font-size:11px}}
 .article{margin-top:32px}
 .article p,.article li{font-size:clamp(16.5px,1.9vw,18px);line-height:1.75}
 .article p{margin:0 0 18px}
@@ -312,21 +323,24 @@ function post(id){
   var full=!!p.body&&!p.preview;var prev=!!p.body&&!!p.preview;
   var cta='<div class="gate" style="margin-top:'+(full?'40px':'0')+'"><b>'+(full?'Originally published on Medium':'Read the complete story on Medium')+'</b><p>'+(full?'Enjoyed it? Follow along, leave a comment or share it from the original post.':(prev?(p.pub?'This is the first part of a long guide. The remaining steps, with the middleware, configuration and deployment code, are on Medium.':'This is the opening of a Medium member-only story. The rest, with the full code and diagrams, is on Medium.'):'This is the opening of the story. The full article is on Medium.'))+'</p><a class="btn primary" href="'+p.url+'">'+(full?'View on Medium ↗':'Continue reading on Medium ↗')+'</a></div>';
   var hs=(full||prev)?p.body.filter(function(b){return b.t==="h2"}):[];
-  var toc=hs.length>2?'<aside class="toc" aria-label="On this page"><span class="mono">On this page</span>'+hs.map(function(b,i){return '<a href="#sec-'+i+'" data-i="'+i+'">'+esc(b.x)+'</a>'}).join('')+'</aside>':'';
+  var toc=hs.length>2?'<aside class="toc" aria-label="In this post"><div class="toc-head"><div><span class="mono">In this post</span><small>'+hs.length+' sections</small></div><span id="rp-slot"></span></div><div class="toc-list">'+hs.map(function(b,i){return '<a href="#sec-'+i+'" data-i="'+i+'"><i>'+(i<9?'0':'')+(i+1)+'</i><span>'+esc(b.x)+'</span></a>'}).join('')+'</div></aside>':'';
   var content=(full||prev)?'<div class="article'+(prev?' is-preview':'')+'">'+body(p)+(prev?'<div class="fade"></div>':'')+'</div>':(p.excerpt?'<div class="read"><p>'+esc(p.excerpt)+'</p></div>':'');
   app.innerHTML='<div class="post-view" style="padding-top:24px"><a class="back" href="#series-'+s.id+'">← '+esc(s.name)+'</a>'+
    '<section class="sheet" style="margin-top:0"><div class="pad"><span class="mono">'+esc(s.name)+(p.date?' · '+esc(fmt(p.date)):'')+(full?' · Full story':(prev?' · Preview':''))+'</span><h1>'+esc(p.title)+'</h1><div class="post-grid'+(toc?' has-toc':'')+'"><div class="post-main" id="pm">'+content+cta+'</div>'+toc+'</div></div></section>'+
    (more.length?'<section class="sheet more"><div class="pad"><span class="mono">More from '+esc(s.name)+'</span><div class="plist">'+more.map(row).join('')+'</div></div></section>':'')+'</div>';
 }
-var rp=null,rpf=null,rpp=null,onScroll=null;
-function stopProgress(){if(onScroll){window.removeEventListener("scroll",onScroll);window.removeEventListener("resize",onScroll);onScroll=null}if(rp){rp.remove();rp=null}}
+var rps=[],onScroll=null;
+function stopProgress(){if(onScroll){window.removeEventListener("scroll",onScroll);window.removeEventListener("resize",onScroll);onScroll=null}rps.forEach(function(r){r.remove()});rps=[];document.body.classList.remove("has-toc-page")}
 function startProgress(){
   stopProgress();
   var pm=document.getElementById("pm");if(!pm)return;
-  rp=document.createElement("button");rp.id="rp";rp.type="button";rp.title="Reading progress · click to go to top";rp.setAttribute("aria-label","Reading progress, click to scroll to top");
-  rp.innerHTML='<svg viewBox="0 0 56 56" aria-hidden="true"><circle class="tr" cx="28" cy="28" r="25"/><circle class="pg" cx="28" cy="28" r="25"/></svg><b>0%</b>';
-  rp.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"})});
-  document.body.appendChild(rp);rpf=rp.querySelector(".pg");rpp=rp.querySelector("b");
+  function ring(cls){
+    var r=document.createElement("button");r.type="button";r.className="rp "+cls;r.title="Reading progress · click to go to top";r.setAttribute("aria-label","Reading progress, click to scroll to top");
+    r.innerHTML='<svg viewBox="0 0 56 56" aria-hidden="true"><circle class="tr" cx="28" cy="28" r="25"/><circle class="pg" cx="28" cy="28" r="25"/></svg><b>0%</b>';
+    r.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"})});rps.push(r);return r;
+  }
+  document.body.appendChild(ring("fx"));
+  var slot=document.getElementById("rp-slot");if(slot){slot.appendChild(ring("in"));document.body.classList.add("has-toc-page")}
   var links=[].slice.call(document.querySelectorAll(".toc a")),heads=links.map(function(a){return document.getElementById("sec-"+a.getAttribute("data-i"))});
   links.forEach(function(a,i){a.addEventListener("click",function(e){e.preventDefault();if(heads[i])heads[i].scrollIntoView({behavior:"smooth"})})});
   var tick=false,lastCur=-1;
@@ -334,7 +348,7 @@ function startProgress(){
     tick=false;
     var r=pm.getBoundingClientRect(),vh=window.innerHeight,total=r.height-vh*0.5,done=-r.top+vh*0.15;
     var pct=Math.max(0,Math.min(1,total>0?done/total:1));
-    rpf.style.strokeDashoffset=157.08*(1-pct);rpp.textContent=pct>=0.995?"✓":Math.round(pct*100)+"%";rp.classList.toggle("done",pct>=0.995);
+    rps.forEach(function(r){r.querySelector(".pg").style.strokeDashoffset=157.08*(1-pct);r.querySelector("b").textContent=pct>=0.995?"✓":Math.round(pct*100);r.classList.toggle("done",pct>=0.995)});
     var cur=-1;heads.forEach(function(h,i){if(h&&h.getBoundingClientRect().top<vh*0.3)cur=i});
     if(pct>=0.995&&heads.length)cur=heads.length-1;
     links.forEach(function(a,i){a.classList.toggle("on",i===cur)});
