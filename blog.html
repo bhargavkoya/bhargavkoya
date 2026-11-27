@@ -167,22 +167,34 @@ footer{padding:28px 0 48px;display:flex;justify-content:space-between;gap:12px;f
 /* post view */
 .back{display:inline-flex;gap:8px;font:500 14px var(--display);color:var(--muted);text-decoration:none;margin:8px 0 18px}
 .back:hover{color:var(--ink)}
-.post-view h1{font-size:clamp(28px,4.6vw,46px);max-width:24ch}
+.post-view h1{font-size:clamp(28px,4.6vw,46px);max-width:none;text-wrap:balance}
 .meta{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:18px}
 .meta a{color:var(--accent);text-decoration:none}
-.read{position:relative;margin-top:32px;max-width:66ch}
+.read{position:relative;margin-top:32px}
 .read p{font-size:clamp(17px,2vw,19px);line-height:1.75;margin:0}
 .read .fade{position:absolute;left:0;right:0;bottom:-1px;height:90px;background:linear-gradient(to bottom,transparent,var(--panel));pointer-events:none}
-.gate{margin-top:0;max-width:66ch;border:1px solid var(--accent);background:var(--accent-soft);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px}
+.gate{margin-top:0;border:1px solid var(--accent);background:var(--accent-soft);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px}
 .gate b{font-size:19px;line-height:1.3}
 .gate p{margin:0;color:var(--muted);font-size:15px}
 .gate .btn{align-self:flex-start}
 .more{margin-top:36px}
 
-.article{margin-top:32px;max-width:72ch}
+.post-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(24px,4vw,56px);margin-top:8px}
+.post-grid.has-toc{grid-template-columns:minmax(0,1fr) 250px}
+.post-main{min-width:0}
+.toc{position:sticky;top:84px;align-self:start;max-height:calc(100vh - 110px);overflow:auto;border-left:1px solid var(--line);padding:4px 0 4px 18px;margin-top:32px}
+.toc .mono{display:block;margin-bottom:10px}
+.toc a{display:block;padding:6px 0;font-size:13.5px;line-height:1.4;color:var(--muted);text-decoration:none}
+.toc a:hover{color:var(--ink)}
+.toc a.on{color:var(--accent);font-weight:600}
+@media (max-width:980px){.post-grid.has-toc{grid-template-columns:minmax(0,1fr)}.toc{display:none}}
+#rp{position:fixed;top:0;right:0;width:6px;height:100vh;background:var(--line);z-index:30}
+#rp i{display:block;width:100%;height:0;background:var(--accent);border-radius:0 0 3px 3px}
+#rp-pct{position:fixed;right:14px;bottom:18px;z-index:30;font-family:var(--mono);font-size:11px;padding:3px 8px;border-radius:999px;background:var(--panel);border:1px solid var(--line);color:var(--muted)}
+.article{margin-top:32px}
 .article p,.article li{font-size:clamp(16.5px,1.9vw,18px);line-height:1.75}
 .article p{margin:0 0 18px}
-.article h2{font-size:clamp(22px,3vw,28px);letter-spacing:-.015em;line-height:1.2;margin:44px 0 14px;font-weight:600;text-wrap:balance}
+.article h2{scroll-margin-top:84px;font-size:clamp(22px,3vw,28px);letter-spacing:-.015em;line-height:1.2;margin:44px 0 14px;font-weight:600;text-wrap:balance}
 .article h3{font-size:19px;line-height:1.3;margin:30px 0 10px;font-weight:600}
 .article ul{margin:0 0 20px;padding-left:22px;display:grid;gap:6px}
 .article li::marker{color:var(--accent)}
@@ -274,8 +286,9 @@ function hl(src,lang){
   return out+esc(src.slice(last));
 }
 function body(p){
+  var hn=0;
   return p.body.map(function(b){
-    if(b.t==="h2")return '<h2>'+esc(b.x)+'</h2>';
+    if(b.t==="h2")return '<h2 id="sec-'+(hn++)+'">'+esc(b.x)+'</h2>';
     if(b.t==="h3")return '<h3>'+esc(b.x)+'</h3>';
     if(b.t==="ul")return '<ul>'+b.items.map(function(i){return '<li>'+esc(i)+'</li>'}).join('')+'</ul>';
     if(b.t==="img")return '<figure class="fig"><img src="'+esc(b.src)+'" alt="'+esc(b.alt)+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest(\'figure\').classList.add(\'noimg\')">'+(b.cap?'<figcaption>'+esc(b.cap)+'</figcaption>':'')+'</figure>';
@@ -291,14 +304,39 @@ function post(id){
   var more=DATA.posts.filter(function(x){return x.series===p.series&&x.id!==p.id});
   var full=!!p.body&&!p.preview;var prev=!!p.body&&!!p.preview;
   var cta='<div class="gate" style="margin-top:'+(full?'40px':'0')+'"><b>'+(full?'Originally published on Medium':'Read the complete story on Medium')+'</b><p>'+(full?'Enjoyed it? Follow along, leave a comment or share it from the original post.':(prev?(p.pub?'This is the first part of a long guide. The remaining steps, with the middleware, configuration and deployment code, are on Medium.':'This is the opening of a Medium member-only story. The rest, with the full code and diagrams, is on Medium.'):'This is the opening of the story. The full article is on Medium.'))+'</p><a class="btn primary" href="'+p.url+'">'+(full?'View on Medium ↗':'Continue reading on Medium ↗')+'</a></div>';
+  var hs=(full||prev)?p.body.filter(function(b){return b.t==="h2"}):[];
+  var toc=hs.length>2?'<aside class="toc" aria-label="On this page"><span class="mono">On this page</span>'+hs.map(function(b,i){return '<a href="#sec-'+i+'" data-i="'+i+'">'+esc(b.x)+'</a>'}).join('')+'</aside>':'';
   var content=(full||prev)?'<div class="article'+(prev?' is-preview':'')+'">'+body(p)+(prev?'<div class="fade"></div>':'')+'</div>':(p.excerpt?'<div class="read"><p>'+esc(p.excerpt)+'</p></div>':'');
   app.innerHTML='<div class="post-view" style="padding-top:24px"><a class="back" href="#series-'+s.id+'">← '+esc(s.name)+'</a>'+
-   '<section class="sheet" style="margin-top:0"><div class="pad"><span class="mono">'+esc(s.name)+(p.date?' · '+esc(fmt(p.date)):'')+(full?' · Full story':(prev?' · Preview':''))+'</span><h1>'+esc(p.title)+'</h1>'+content+cta+'</div></section>'+
+   '<section class="sheet" style="margin-top:0"><div class="pad"><span class="mono">'+esc(s.name)+(p.date?' · '+esc(fmt(p.date)):'')+(full?' · Full story':(prev?' · Preview':''))+'</span><h1>'+esc(p.title)+'</h1><div class="post-grid'+(toc?' has-toc':'')+'"><div class="post-main" id="pm">'+content+cta+'</div>'+toc+'</div></div></section>'+
    (more.length?'<section class="sheet more"><div class="pad"><span class="mono">More from '+esc(s.name)+'</span><div class="plist">'+more.map(row).join('')+'</div></div></section>':'')+'</div>';
 }
+var rp=null,rpf=null,rpp=null,onScroll=null;
+function stopProgress(){if(onScroll){window.removeEventListener("scroll",onScroll);window.removeEventListener("resize",onScroll);onScroll=null}if(rp){rp.remove();rpp.remove();rp=null}}
+function startProgress(){
+  stopProgress();
+  var pm=document.getElementById("pm");if(!pm)return;
+  rp=document.createElement("div");rp.id="rp";rp.setAttribute("role","progressbar");rp.setAttribute("aria-label","Reading progress");rp.setAttribute("aria-valuemin","0");rp.setAttribute("aria-valuemax","100");rp.innerHTML="<i></i>";
+  rpp=document.createElement("div");rpp.id="rp-pct";rpp.textContent="0%";
+  document.body.appendChild(rp);document.body.appendChild(rpp);rpf=rp.firstChild;
+  var links=[].slice.call(document.querySelectorAll(".toc a")),heads=links.map(function(a){return document.getElementById("sec-"+a.getAttribute("data-i"))});
+  links.forEach(function(a,i){a.addEventListener("click",function(e){e.preventDefault();if(heads[i])heads[i].scrollIntoView({behavior:"smooth"})})});
+  var tick=false;
+  function update(){
+    tick=false;
+    var r=pm.getBoundingClientRect(),vh=window.innerHeight,total=r.height-vh*0.5,done=-r.top+vh*0.15;
+    var pct=Math.max(0,Math.min(1,total>0?done/total:1));
+    rpf.style.height=(pct*100)+"%";rp.setAttribute("aria-valuenow",Math.round(pct*100));rpp.textContent=Math.round(pct*100)+"%";
+    var cur=-1;heads.forEach(function(h,i){if(h&&h.getBoundingClientRect().top<vh*0.3)cur=i});
+    links.forEach(function(a,i){a.classList.toggle("on",i===cur)});
+  }
+  onScroll=function(){if(!tick){tick=true;requestAnimationFrame(update)}};
+  window.addEventListener("scroll",onScroll,{passive:true});window.addEventListener("resize",onScroll);update();
+}
 function route(){
+  stopProgress();
   var h=location.hash.replace("#","");
-  if(h.indexOf("post-")===0){post(h.slice(5));window.scrollTo(0,0);}
+  if(h.indexOf("post-")===0){post(h.slice(5));window.scrollTo(0,0);startProgress();}
   else{list();if(h){var el=document.getElementById(h);if(el)el.scrollIntoView();}else window.scrollTo(0,0);}
 }
 window.addEventListener("hashchange",route);route();
