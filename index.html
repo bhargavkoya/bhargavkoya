@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bhargava Koya</title>
 <meta name="description" content="Senior Software Engineer in Dublin building production .NET, Azure and AI systems. Projects, writing and contact.">
+<link rel="icon" type="image/jpeg" href="assets/bhargava.jpg">
+<link rel="apple-touch-icon" href="assets/bhargava.jpg">
+<link rel="canonical" href="https://bhargavkoya.github.io/bhargavkoya/">
+<meta name="theme-color" content="#4048d6">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bhargava Koya">
+<meta property="og:title" content="Bhargava Koya">
+<meta property="og:description" content="Senior Software Engineer in Dublin building production .NET, Azure and AI systems. Projects, writing and contact.">
+<meta property="og:url" content="https://bhargavkoya.github.io/bhargavkoya/">
+<meta property="og:image" content="https://bhargavkoya.github.io/bhargavkoya/assets/bhargava.jpg">
+<meta property="og:image:alt" content="Photo of Bhargava Koya">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bhargava Koya">
+<meta name="twitter:description" content="Senior Software Engineer in Dublin building production .NET, Azure and AI systems. Projects, writing and contact.">
+<meta name="twitter:image" content="https://bhargavkoya.github.io/bhargavkoya/assets/bhargava.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -74,6 +89,12 @@ h1 em{font-style:normal;color:var(--accent)}
 .facts dd.good{color:var(--good)}
 .stack{display:flex;flex-wrap:wrap;gap:8px;padding:18px clamp(20px,4vw,40px);border-top:1px solid var(--line)}
 .chip{font-family:var(--mono);font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:22px}
+.skill-group{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--bg)}
+.skill-group .mono{display:block;margin-bottom:12px}
+.skill-group .tags{display:flex;flex-wrap:wrap;gap:8px}
 
 /* work index */
 .work{display:grid;grid-template-columns:320px 1fr}
@@ -157,6 +178,7 @@ footer{padding:28px 0 48px;display:flex;justify-content:space-between;gap:12px;f
     <a class="brand" href="#top"><img class="mark" src="assets/bhargava.jpg" alt="" width="32" height="32">Bhargava Koya</a>
     <nav aria-label="Primary">
       <a class="hide-sm" href="#work">Work</a>
+      <a class="hide-sm" href="#skills">Skills</a>
       <a class="hide-sm" href="blog.html">Blog</a>
       <a class="hide-sm" href="#repos">Repositories</a>
       <a href="https://github.com/bhargavkoya" class="hide-sm">GitHub</a>
@@ -198,7 +220,7 @@ footer{padding:28px 0 48px;display:flex;justify-content:space-between;gap:12px;f
           <div class="row"><dt>Production experience</dt><dd>Nearly 5 years</dd></div>
           <div class="row"><dt>Core stack</dt><dd>C# · .NET · Azure</dd></div>
           <div class="row"><dt>Education</dt><dd class="good">MSc AI (completed)</dd></div>
-          <div class="row"><dt>Public repositories</dt><dd><a href="https://github.com/bhargavkoya">44 on GitHub ↗</a></dd></div>
+          <div class="row"><dt>Public repositories</dt><dd><a id="gh-count" href="https://github.com/bhargavkoya">44 on GitHub ↗</a></dd></div>
           <div class="row"><dt>Writing</dt><dd><a href="https://medium.com/@bhargavkoya56">Medium ↗</a></dd></div>
           <div class="row"><dt>Based in</dt><dd>Dublin, Ireland</dd></div>
         </dl>
@@ -216,6 +238,25 @@ footer{padding:28px 0 48px;display:flex;justify-content:space-between;gap:12px;f
         <div class="mono"><span id="h-work">Selected work</span><span id="count">06</span></div>
       </div>
       <div class="detail" id="detail" role="tabpanel" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="sheet" id="skills" aria-labelledby="h-skills">
+    <div class="pad">
+      <span class="mono">What I work with</span>
+      <h2 id="h-skills" style="margin:8px 0 0;font-size:clamp(26px,3.6vw,38px);letter-spacing:-.02em;line-height:1.12;font-weight:600">Skills and technologies</h2>
+      <div class="skills">
+        <div class="skill-group"><span class="mono">Languages &amp; Frameworks</span><div class="tags"><span class="chip">C#</span><span class="chip">ASP.NET Core (.NET 5–10)</span><span class="chip">Entity Framework Core</span><span class="chip">Dapper</span><span class="chip">Web API</span><span class="chip">REST APIs</span><span class="chip">Quartz.NET</span><span class="chip">TypeScript</span><span class="chip">Angular</span><span class="chip">React</span><span class="chip">JavaScript</span><span class="chip">Blazor</span><span class="chip">HTML/CSS</span><span class="chip">Bootstrap</span><span class="chip">Tailwind CSS</span><span class="chip">WPF</span><span class="chip">WinForms</span></div></div>
+        <div class="skill-group"><span class="mono">APIs &amp; Integration</span><div class="tags"><span class="chip">OpenAPI governance</span><span class="chip">Swagger</span><span class="chip">Service versioning</span><span class="chip">REST API design</span><span class="chip">Service Bus messaging</span><span class="chip">Kafka</span><span class="chip">JWT</span><span class="chip">OAuth 2.0</span><span class="chip">gRPC</span><span class="chip">WebSockets</span><span class="chip">Server-Sent Events</span><span class="chip">Long Polling</span><span class="chip">Load Balancing</span><span class="chip">Rate Limiting</span><span class="chip">Reverse Proxy (YARP)</span></div></div>
+        <div class="skill-group"><span class="mono">Architecture &amp; Patterns</span><div class="tags"><span class="chip">Microservices</span><span class="chip">Event-Driven Architecture</span><span class="chip">Distributed Systems</span><span class="chip">Domain-Driven Design</span><span class="chip">CQRS</span><span class="chip">Clean Architecture</span><span class="chip">SOLID</span><span class="chip">Design Patterns</span><span class="chip">Transactional Outbox</span><span class="chip">Strategy Pattern</span></div></div>
+        <div class="skill-group"><span class="mono">Testing &amp; Quality</span><div class="tags"><span class="chip">NUnit</span><span class="chip">xUnit</span><span class="chip">Moq</span><span class="chip">Testcontainers</span><span class="chip">Postman</span><span class="chip">Test Automation</span><span class="chip">Test Planning</span><span class="chip">Static Code Analysis</span></div></div>
+        <div class="skill-group"><span class="mono">Cloud, DevOps &amp; Observability</span><div class="tags"><span class="chip">Microsoft Azure (App Insights, Service Bus, Functions)</span><span class="chip">Serverless</span><span class="chip">Telemetry</span><span class="chip">OpenTelemetry</span><span class="chip">Docker</span><span class="chip">Docker Compose</span><span class="chip">Kubernetes</span><span class="chip">GitHub Actions</span><span class="chip">Azure DevOps</span><span class="chip">CI/CD</span></div></div>
+        <div class="skill-group"><span class="mono">Databases &amp; Caching</span><div class="tags"><span class="chip">SQL Server</span><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">MongoDB</span><span class="chip">Redis</span><span class="chip">Query Optimization</span></div></div>
+        <div class="skill-group"><span class="mono">Methodologies</span><div class="tags"><span class="chip">Agile/Scrum</span><span class="chip">Jira</span><span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Code Review</span><span class="chip">Technical Mentoring</span></div></div>
+        <div class="skill-group"><span class="mono">AI Coding Agents</span><div class="tags"><span class="chip">Claude Code</span><span class="chip">Cursor</span><span class="chip">GitHub Copilot</span><span class="chip">OpenAI Codex</span><span class="chip">Google Antigravity</span></div></div>
+        <div class="skill-group"><span class="mono">AI/ML (MSc, applied)</span><div class="tags"><span class="chip">Python</span><span class="chip">PyTorch</span><span class="chip">TensorFlow</span><span class="chip">Scikit-learn</span><span class="chip">NLP</span><span class="chip">Transformers</span><span class="chip">LLMs/RAG (LangChain)</span><span class="chip">Prompt Engineering</span><span class="chip">Vector Databases</span></div></div>
+      </div>
     </div>
   </section>
 
@@ -284,6 +325,14 @@ footer{padding:28px 0 48px;display:flex;justify-content:space-between;gap:12px;f
 <script>
 (function(){
   var GH="https://github.com/bhargavkoya/";
+  (function(){
+    var el=document.getElementById("gh-count"),key="bk-gh-repos";
+    function show(n){if(n>0)el.textContent=n+" on GitHub ↗"}
+    try{var c=JSON.parse(sessionStorage.getItem(key)||"null");if(c&&Date.now()-c.t<36e5){show(c.n);return}}catch(e){}
+    fetch("https://api.github.com/users/bhargavkoya").then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(u){
+      show(u.public_repos);try{sessionStorage.setItem(key,JSON.stringify({n:u.public_repos,t:Date.now()}))}catch(e){}
+    }).catch(function(){});
+  })();
   var projects=[
     {n:"01",id:"AgriIntel",kind:"MSc thesis",stack:"Python / TensorFlow",
      title:"AgriIntel",
