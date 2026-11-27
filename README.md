@@ -41,3 +41,10 @@ JobScheduler walkthrough: https://youtu.be/96mlakVsfT0
 <p align="center">
   <img src="https://github-statspro.vercel.app/api/stats/bhargavkoya?theme=default" alt="GitHub stats" />
 </p>
+
+## Adding a blog post
+
+1. Add `content/<id>.md` (the Medium story id). Supported syntax: `##` and `###` headings, `- ` bullets, plain paragraphs, fenced code with a language, `@@img url|alt|caption`, and `@@preview` (or `@@preview public`) on its own line to show only a preview with a link to Medium.
+2. Add one entry to `posts.json` with `id`, `series`, `title`, `date`, `url` and a short `excerpt`.
+
+`blog.html` loads both at runtime, so it never needs editing. Serve the folder over HTTP to preview it locally (`python -m http.server`).

@@ -1,0 +1,161 @@
+{
+  "series": [
+    {
+      "id": "system-design",
+      "name": "System design",
+      "count": 5,
+      "url": "https://medium.com/@bhargavkoya56/list/mysystemdesignblogs-1714cf341617",
+      "blurb": "How real systems fail as they grow, told through public postmortems."
+    },
+    {
+      "id": "ai-dotnet",
+      "name": "AI in .NET",
+      "count": 34,
+      "url": "https://medium.com/@bhargavkoya56/list/myainet-blogs-4bb5a227e020",
+      "blurb": "Agents, MCP, local models and production concerns for AI features in .NET."
+    },
+    {
+      "id": "dotnet",
+      "name": ".NET",
+      "count": 19,
+      "url": "https://medium.com/@bhargavkoya56/list/mynetblogs-36d2a36dd2ce",
+      "blurb": "What's new in .NET and C#, plus practical ASP.NET Core builds."
+    },
+    {
+      "id": "cs-concepts",
+      "name": "CS concepts",
+      "count": 20,
+      "url": "https://medium.com/@bhargavkoya56/list/mycsconceptsblogs-ae65862fae3f",
+      "blurb": "Servers, architecture and core engineering ideas built from scratch."
+    },
+    {
+      "id": "web-dev",
+      "name": "Web development",
+      "count": 62,
+      "url": "https://medium.com/@bhargavkoya56/list/mywebdevelopmentblogs-31dcb5fe34b3",
+      "blurb": "APIs, patterns and database design for real applications."
+    }
+  ],
+  "posts": [
+    {
+      "id": "c497b6414104",
+      "series": "system-design",
+      "title": "Scaling From One Server to Millions of Users: What Breaks First, and in What Order",
+      "date": "2026-11-13",
+      "url": "https://medium.com/p/c497b6414104",
+      "excerpt": "Pokémon GO launched with a plan. Niantic set a target of 1x player traffic and estimated a worst case of about 5x. Real traffic reached 50x the target, ten times the worst case. That is from Google’s account of the launch."
+    },
+    {
+      "id": "564d4e4d3919",
+      "series": "system-design",
+      "title": "Caching: strategies, eviction, and the stampede that takes your database down",
+      "date": "2026-11-20",
+      "url": "https://medium.com/p/564d4e4d3919",
+      "excerpt": "Facebook’s engineering team published a postmortem the day the site went down. Facebook was down or unreachable for many users for about 2.5 hours, which the post calls the worst outage in over four years. The cause was a piece of automation."
+    },
+    {
+      "id": "52f6b2bb9dfb",
+      "series": "system-design",
+      "title": "Sharding and Indexes: The Outage That Started With Two Evenly Split Shards",
+      "date": "2026-11-26",
+      "url": "https://medium.com/p/52f6b2bb9dfb",
+      "excerpt": "Foursquare kept check-ins in MongoDB. About two months before the outage they had moved from one 66GB EC2 instance to a two-shard cluster. Each shard ran on its own 66GB instance with a replica slave."
+    },
+    {
+      "id": "b04ea269473c",
+      "series": "ai-dotnet",
+      "title": "Build a Multi-Agent System in .NET with Microsoft Agent Framework",
+      "date": "2026-07-22",
+      "url": "https://medium.com/p/b04ea269473c",
+      "excerpt": "A single agent that researches a topic, summarizes findings, and reviews its own output is a monolith. The context window bloats. The model loses track of constraints set 3,000 tokens ago. Errors in the research phase silently corrupt the summary. You end up with a God Agent, and God Agents are a maintenance nightmare."
+    },
+    {
+      "id": "56e675aec0be",
+      "series": "ai-dotnet",
+      "title": "Securing .NET AI Apps: Key Vault, PII Filtering & Prompt Injection Defense",
+      "date": "2026-07-21",
+      "url": "https://medium.com/p/56e675aec0be",
+      "excerpt": "You shipped an AI feature. It calls an LLM, takes user input, maybe hits a few tools. It works in the demo. Then someone on your security team asks three questions you don’t have good answers to…"
+    },
+    {
+      "id": "ae099dbc5565",
+      "series": "ai-dotnet",
+      "title": "Run ONNX Models in .NET: Embeddings and Small Local Models Without Azure",
+      "date": "2026-07-30",
+      "url": "https://medium.com/p/ae099dbc5565",
+      "excerpt": "Three weeks into a semantic search feature, our Azure OpenAI embeddings bill jumped from $180 to $4,300 in a single billing cycle. Nothing in the product had changed. What had changed was a background reindex job that re-embedded every document in the catalog on every deploy…"
+    },
+    {
+      "id": "0b875ed38a60",
+      "series": "dotnet",
+      "title": ".NET 10 & C# 14 Deep Dive for Modern Development, Part 1: Concepts and Code Snippets",
+      "date": "2025-11-22",
+      "url": "https://medium.com/p/0b875ed38a60",
+      "excerpt": "On November 11, 2025, Microsoft released .NET 10 as a Long-Term Support (LTS) version, supported through November 14, 2028. This anniversary release represents a significant leap forward in performance, developer productivity and cloud-native capabilities."
+    },
+    {
+      "id": "65b787d5fe7e",
+      "series": "dotnet",
+      "title": ".NET 10 & C# 14 Deep Dive for Modern Development, Part 2: Real-World Implementation",
+      "date": "2025-11-22",
+      "url": "https://medium.com/p/65b787d5fe7e",
+      "excerpt": "In this section, we’ll build a high-performance Task Management system leveraging the latest .NET 10 features. This implementation demonstrates routing, middleware, Blazor UI and performance optimizations in a practical scenario."
+    },
+    {
+      "id": "cf46e9067a90",
+      "series": "dotnet",
+      "title": "Build a Simple In-Memory Cache in ASP.NET Core",
+      "date": "2025-08-14",
+      "url": "https://medium.com/p/cf46e9067a90",
+      "excerpt": "Modern web applications face an ever-increasing demand for speed and responsiveness. Users expect millisecond response times and even slight delays can lead to frustration and abandonment. This is where in-memory caching becomes a game-changer."
+    },
+    {
+      "id": "716e6e0665e7",
+      "series": "cs-concepts",
+      "title": "How to build an HTTP Server in .NET: Practical Guide",
+      "date": "2025-06-01",
+      "url": "https://medium.com/p/716e6e0665e7",
+      "excerpt": "In the previous blog, we covered the basics of HTTP servers. Now, let’s build one from scratch in .NET."
+    },
+    {
+      "id": "4af43e696015",
+      "series": "cs-concepts",
+      "title": "Building a Production-Ready CLI Calculator in C#: From Code to Scale",
+      "date": "2025-07-14",
+      "url": "https://medium.com/p/4af43e696015",
+      "excerpt": "In today’s fast-paced development world, even the simplest applications need to be built with scalability and maintainability in mind…"
+    },
+    {
+      "id": "e3dffd8da7b0",
+      "series": "cs-concepts",
+      "title": "From Chaos to Clarity: Mastering Software Architectures That Scale in the Modern World, Part I",
+      "date": "2025-07-21",
+      "url": "https://medium.com/p/e3dffd8da7b0",
+      "excerpt": "The digital landscape has transformed dramatically over the past decade. What once worked for small applications now crumbles under the weight of modern enterprise demands."
+    },
+    {
+      "id": "357e53967384",
+      "series": "web-dev",
+      "title": "Building Reliable and Scalable ASP.NET Core Web APIs: The Practical Guide",
+      "date": "2025-08-27",
+      "url": "https://medium.com/p/357e53967384",
+      "excerpt": "Imagine you’re the lead developer at a growing startup called ShopSphere. The company has secured Series A funding and needs to rebuild their existing monolithic application into a scalable, maintainable API-first platform…"
+    },
+    {
+      "id": "e60fe154e6b9",
+      "series": "web-dev",
+      "title": "How Strategy Pattern + Plugin Architecture Revolutionizes C# Development",
+      "date": "2025-08-30",
+      "url": "https://medium.com/p/e60fe154e6b9",
+      "excerpt": "Building modern applications that can adapt, scale and evolve without breaking existing functionality is one of the biggest challenges developers face today. Whether you’re working on a small startup project or architecting systems for companies, the ability to extend functionality seamlessly can make or break your application’s success."
+    },
+    {
+      "id": "cbe867e9cdc5",
+      "series": "web-dev",
+      "title": "How I Built a Life-Saving Blood Donation Database: A Practical Guide",
+      "date": "2025-08-27",
+      "url": "https://medium.com/p/cbe867e9cdc5",
+      "excerpt": "Behind this critical healthcare need lies a complex system of donors, blood centers, hospitals and meticulous record-keeping. Today, we’re diving deep into designing a robust Blood Donation Management Database that can handle this life-or-death responsibility with precision and efficiency."
+    }
+  ]
+}
