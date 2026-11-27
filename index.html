@@ -91,10 +91,26 @@ h1 em{font-style:normal;color:var(--accent)}
 .chip{font-family:var(--mono);font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
 
 /* skills */
-.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:22px}
-.skill-group{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--bg)}
-.skill-group .mono{display:block;margin-bottom:12px}
-.skill-group .tags{display:flex;flex-wrap:wrap;gap:8px}
+.skills{margin:22px 0 0;border-top:1px solid var(--line)}
+.skills .row{display:grid;grid-template-columns:220px 1fr;gap:6px 24px;padding:12px 0;border-bottom:1px solid var(--line)}
+.skills .row:last-child{border-bottom:0;padding-bottom:0}
+.skills dt{padding-top:3px}
+.skills dd{margin:0;color:var(--muted);font-size:14.5px;line-height:1.7}
+.skills dd span:not(:last-child)::after{content:","}
+@media (max-width:640px){.skills .row{grid-template-columns:1fr}}
+
+.sk-tabs{margin:22px 0 0}
+.sk-meta{margin:6px 0 14px}
+.sk-rows{display:grid;gap:10px}
+.sk-row{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.sk-track{display:flex;width:max-content;animation:sk var(--d,40s) linear infinite}
+.sk-row.rev .sk-track{animation-direction:reverse}
+.sk-row:hover .sk-track,.sk-row:focus-within .sk-track{animation-play-state:paused}
+.sk-set{display:flex;gap:10px;padding-right:10px}
+.sk-chip{font-family:var(--mono);font-size:13px;padding:7px 14px;border-radius:999px;border:1px solid var(--line);color:var(--ink);background:var(--bg);white-space:nowrap}
+@keyframes sk{to{transform:translateX(calc(-1 * var(--w)))}}
+@media (max-width:640px){.sk-tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px}.sk-tabs button{flex:none}}
+@media (prefers-reduced-motion:reduce){.sk-track{animation:none}.sk-row{overflow-x:auto;-webkit-mask-image:none;mask-image:none}}
 
 /* work index */
 .work{display:grid;grid-template-columns:320px 1fr}
@@ -246,17 +262,17 @@ footer{padding:28px 0 48px;display:flex;justify-content:space-between;gap:12px;f
     <div class="pad">
       <span class="mono">What I work with</span>
       <h2 id="h-skills" style="margin:8px 0 0;font-size:clamp(26px,3.6vw,38px);letter-spacing:-.02em;line-height:1.12;font-weight:600">Skills and technologies</h2>
-      <div class="skills">
-        <div class="skill-group"><span class="mono">Languages &amp; Frameworks</span><div class="tags"><span class="chip">C#</span><span class="chip">ASP.NET Core (.NET 5–10)</span><span class="chip">Entity Framework Core</span><span class="chip">Dapper</span><span class="chip">Web API</span><span class="chip">REST APIs</span><span class="chip">Quartz.NET</span><span class="chip">TypeScript</span><span class="chip">Angular</span><span class="chip">React</span><span class="chip">JavaScript</span><span class="chip">Blazor</span><span class="chip">HTML/CSS</span><span class="chip">Bootstrap</span><span class="chip">Tailwind CSS</span><span class="chip">WPF</span><span class="chip">WinForms</span></div></div>
-        <div class="skill-group"><span class="mono">APIs &amp; Integration</span><div class="tags"><span class="chip">OpenAPI governance</span><span class="chip">Swagger</span><span class="chip">Service versioning</span><span class="chip">REST API design</span><span class="chip">Service Bus messaging</span><span class="chip">Kafka</span><span class="chip">JWT</span><span class="chip">OAuth 2.0</span><span class="chip">gRPC</span><span class="chip">WebSockets</span><span class="chip">Server-Sent Events</span><span class="chip">Long Polling</span><span class="chip">Load Balancing</span><span class="chip">Rate Limiting</span><span class="chip">Reverse Proxy (YARP)</span></div></div>
-        <div class="skill-group"><span class="mono">Architecture &amp; Patterns</span><div class="tags"><span class="chip">Microservices</span><span class="chip">Event-Driven Architecture</span><span class="chip">Distributed Systems</span><span class="chip">Domain-Driven Design</span><span class="chip">CQRS</span><span class="chip">Clean Architecture</span><span class="chip">SOLID</span><span class="chip">Design Patterns</span><span class="chip">Transactional Outbox</span><span class="chip">Strategy Pattern</span></div></div>
-        <div class="skill-group"><span class="mono">Testing &amp; Quality</span><div class="tags"><span class="chip">NUnit</span><span class="chip">xUnit</span><span class="chip">Moq</span><span class="chip">Testcontainers</span><span class="chip">Postman</span><span class="chip">Test Automation</span><span class="chip">Test Planning</span><span class="chip">Static Code Analysis</span></div></div>
-        <div class="skill-group"><span class="mono">Cloud, DevOps &amp; Observability</span><div class="tags"><span class="chip">Microsoft Azure (App Insights, Service Bus, Functions)</span><span class="chip">Serverless</span><span class="chip">Telemetry</span><span class="chip">OpenTelemetry</span><span class="chip">Docker</span><span class="chip">Docker Compose</span><span class="chip">Kubernetes</span><span class="chip">GitHub Actions</span><span class="chip">Azure DevOps</span><span class="chip">CI/CD</span></div></div>
-        <div class="skill-group"><span class="mono">Databases &amp; Caching</span><div class="tags"><span class="chip">SQL Server</span><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">MongoDB</span><span class="chip">Redis</span><span class="chip">Query Optimization</span></div></div>
-        <div class="skill-group"><span class="mono">Methodologies</span><div class="tags"><span class="chip">Agile/Scrum</span><span class="chip">Jira</span><span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Code Review</span><span class="chip">Technical Mentoring</span></div></div>
-        <div class="skill-group"><span class="mono">AI Coding Agents</span><div class="tags"><span class="chip">Claude Code</span><span class="chip">Cursor</span><span class="chip">GitHub Copilot</span><span class="chip">OpenAI Codex</span><span class="chip">Google Antigravity</span></div></div>
-        <div class="skill-group"><span class="mono">AI/ML (MSc, applied)</span><div class="tags"><span class="chip">Python</span><span class="chip">PyTorch</span><span class="chip">TensorFlow</span><span class="chip">Scikit-learn</span><span class="chip">NLP</span><span class="chip">Transformers</span><span class="chip">LLMs/RAG (LangChain)</span><span class="chip">Prompt Engineering</span><span class="chip">Vector Databases</span></div></div>
-      </div>
+      <dl class="skills">
+        <div class="row"><dt class="mono">Languages &amp; Frameworks</dt><dd><span>C#</span> <span>ASP.NET Core (.NET 5–10)</span> <span>Entity Framework Core</span> <span>Dapper</span> <span>Web API</span> <span>REST APIs</span> <span>Quartz.NET</span> <span>TypeScript</span> <span>Angular</span> <span>React</span> <span>JavaScript</span> <span>Blazor</span> <span>HTML/CSS</span> <span>Bootstrap</span> <span>Tailwind CSS</span> <span>WPF</span> <span>WinForms</span></dd></div>
+        <div class="row"><dt class="mono">APIs &amp; Integration</dt><dd><span>OpenAPI governance</span> <span>Swagger</span> <span>Service versioning</span> <span>REST API design</span> <span>Service Bus messaging</span> <span>Kafka</span> <span>JWT</span> <span>OAuth 2.0</span> <span>gRPC</span> <span>WebSockets</span> <span>Server-Sent Events</span> <span>Long Polling</span> <span>Load Balancing</span> <span>Rate Limiting</span> <span>Reverse Proxy (YARP)</span></dd></div>
+        <div class="row"><dt class="mono">Architecture &amp; Patterns</dt><dd><span>Microservices</span> <span>Event-Driven Architecture</span> <span>Distributed Systems</span> <span>Domain-Driven Design</span> <span>CQRS</span> <span>Clean Architecture</span> <span>SOLID</span> <span>Design Patterns</span> <span>Transactional Outbox</span> <span>Strategy Pattern</span></dd></div>
+        <div class="row"><dt class="mono">Testing &amp; Quality</dt><dd><span>NUnit</span> <span>xUnit</span> <span>Moq</span> <span>Testcontainers</span> <span>Postman</span> <span>Test Automation</span> <span>Test Planning</span> <span>Static Code Analysis</span></dd></div>
+        <div class="row"><dt class="mono">Cloud, DevOps &amp; Observability</dt><dd><span>Microsoft Azure (App Insights, Service Bus, Functions)</span> <span>Serverless</span> <span>Telemetry</span> <span>OpenTelemetry</span> <span>Docker</span> <span>Docker Compose</span> <span>Kubernetes</span> <span>GitHub Actions</span> <span>Azure DevOps</span> <span>CI/CD</span></dd></div>
+        <div class="row"><dt class="mono">Databases &amp; Caching</dt><dd><span>SQL Server</span> <span>PostgreSQL</span> <span>MySQL</span> <span>MongoDB</span> <span>Redis</span> <span>Query Optimization</span></dd></div>
+        <div class="row"><dt class="mono">Methodologies</dt><dd><span>Agile/Scrum</span> <span>Jira</span> <span>Git</span> <span>GitHub</span> <span>Code Review</span> <span>Technical Mentoring</span></dd></div>
+        <div class="row"><dt class="mono">AI Coding Agents</dt><dd><span>Claude Code</span> <span>Cursor</span> <span>GitHub Copilot</span> <span>OpenAI Codex</span> <span>Google Antigravity</span></dd></div>
+        <div class="row"><dt class="mono">AI/ML (MSc, applied)</dt><dd><span>Python</span> <span>PyTorch</span> <span>TensorFlow</span> <span>Scikit-learn</span> <span>NLP</span> <span>Transformers</span> <span>LLMs/RAG (LangChain)</span> <span>Prompt Engineering</span> <span>Vector Databases</span></dd></div>
+      </dl>
     </div>
   </section>
 
@@ -450,6 +466,47 @@ footer{padding:28px 0 48px;display:flex;justify-content:space-between;gap:12px;f
     if(e.key==="t")toggle();
     if(e.key==="/"){e.preventDefault();document.getElementById("repos").scrollIntoView();}
   });
+})();
+
+/* skills: category tabs with opposite-direction marquee rows (built from the static <dl>) */
+(function(){
+  var dl=document.querySelector("dl.skills");if(!dl)return;
+  var groups=[].map.call(dl.querySelectorAll(".row"),function(r){
+    return {name:r.querySelector("dt").textContent,items:[].map.call(r.querySelectorAll("dd span"),function(x){return x.textContent.replace(/,$/,"")})};
+  });
+  var all=[].concat.apply([],groups.map(function(g){return g.items}));
+  var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var tabs=document.createElement("div");tabs.className="filters sk-tabs";tabs.setAttribute("role","group");tabs.setAttribute("aria-label","Skill categories");
+  var meta=document.createElement("div");meta.className="mono sk-meta";meta.setAttribute("aria-live","polite");
+  var rows=document.createElement("div");rows.className="sk-rows";
+  var cur=-1;
+  function split(items,n){var per=Math.ceil(items.length/n),out=[];for(var i=0;i<n;i++){var part=items.slice(i*per,(i+1)*per);if(part.length)out.push(part)}return out}
+  function set(items){var d=document.createElement("div");d.className="sk-set";items.forEach(function(t){var c=document.createElement("span");c.className="sk-chip";c.textContent=t;d.appendChild(c)});return d}
+  function build(){
+    var items=cur<0?all:groups[cur].items,n=cur<0?4:(items.length>3?2:1);
+    meta.textContent=(cur<0?"All skills":groups[cur].name)+" · "+items.length+" · hover to pause";
+    rows.textContent="";
+    split(items,n).forEach(function(part,i){
+      var row=document.createElement("div");row.className="sk-row"+(i%2===0?" rev":"");
+      var track=document.createElement("div");track.className="sk-track";row.appendChild(track);rows.appendChild(row);
+      var first=set(part);track.appendChild(first);
+      if(reduce)return;
+      var w=first.offsetWidth,need=Math.ceil(row.clientWidth/w)+1;
+      for(var k=0;k<need;k++){var c=set(part);c.setAttribute("aria-hidden","true");track.appendChild(c)}
+      track.style.setProperty("--w",w+"px");track.style.setProperty("--d",Math.max(12,w/45)+"s");
+    });
+  }
+  function select(i){
+    cur=i;[].forEach.call(tabs.children,function(b,k){b.setAttribute("aria-pressed",String(k-1===i))});build();
+  }
+  ["All"].concat(groups.map(function(g){return g.name})).forEach(function(name,k){
+    var b=document.createElement("button");b.type="button";b.textContent=name;b.setAttribute("aria-pressed","false");
+    b.addEventListener("click",function(){select(k-1)});tabs.appendChild(b);
+  });
+  dl.replaceWith(tabs,meta,rows);
+  select(-1);
+  var lastW=rows.clientWidth,t;
+  addEventListener("resize",function(){clearTimeout(t);t=setTimeout(function(){if(rows.clientWidth!==lastW){lastW=rows.clientWidth;build()}},200)});
 })();
 </script>
 </body>
