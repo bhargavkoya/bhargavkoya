@@ -102,15 +102,15 @@ h1 em{font-style:normal;color:var(--accent)}
 .sk-tabs{margin:22px 0 0}
 .sk-meta{margin:6px 0 14px}
 .sk-rows{display:grid;gap:10px}
-.sk-row{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
-.sk-track{display:flex;width:max-content;animation:sk var(--d,40s) linear infinite}
-.sk-row.rev .sk-track{animation-direction:reverse}
-.sk-row:hover .sk-track,.sk-row:focus-within .sk-track{animation-play-state:paused}
-.sk-set{display:flex;gap:10px;padding-right:10px}
-.sk-chip{font-family:var(--mono);font-size:13px;padding:7px 14px;border-radius:999px;border:1px solid var(--line);color:var(--ink);background:var(--bg);white-space:nowrap}
-@keyframes sk{to{transform:translateX(calc(-1 * var(--w)))}}
-@media (max-width:640px){.sk-tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px}.sk-tabs button{flex:none}}
-@media (prefers-reduced-motion:reduce){.sk-track{animation:none}.sk-row{overflow-x:auto;-webkit-mask-image:none;mask-image:none}}
+.sk-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px}
+.sk-scroll{display:flex;gap:10px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;padding:2px 0}
+.sk-scroll::-webkit-scrollbar{display:none}
+.sk-chip{flex:none;font-family:var(--mono);font-size:13px;padding:7px 14px;border-radius:999px;border:1px solid var(--line);color:var(--ink);background:var(--bg);white-space:nowrap}
+.sk-arrow{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:500 18px/1 var(--display);cursor:pointer;display:grid;place-items:center;padding:0}
+.sk-arrow:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.sk-arrow:disabled{opacity:.35;cursor:default}
+@media (max-width:640px){.sk-tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px}.sk-tabs button{flex:none}.sk-arrow{width:30px;height:30px}}
+@media (prefers-reduced-motion:reduce){.sk-scroll{scroll-behavior:auto}}
 
 /* work index */
 .work{display:grid;grid-template-columns:320px 1fr}
@@ -468,33 +468,34 @@ footer{padding:28px 0 48px;display:flex;justify-content:space-between;gap:12px;f
   });
 })();
 
-/* skills: category tabs with opposite-direction marquee rows (built from the static <dl>) */
+/* skills: category tabs with arrow-scrolled rows (built from the static <dl>) */
 (function(){
   var dl=document.querySelector("dl.skills");if(!dl)return;
   var groups=[].map.call(dl.querySelectorAll(".row"),function(r){
     return {name:r.querySelector("dt").textContent,items:[].map.call(r.querySelectorAll("dd span"),function(x){return x.textContent.replace(/,$/,"")})};
   });
   var all=[].concat.apply([],groups.map(function(g){return g.items}));
-  var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
   var tabs=document.createElement("div");tabs.className="filters sk-tabs";tabs.setAttribute("role","group");tabs.setAttribute("aria-label","Skill categories");
   var meta=document.createElement("div");meta.className="mono sk-meta";meta.setAttribute("aria-live","polite");
   var rows=document.createElement("div");rows.className="sk-rows";
   var cur=-1;
   function split(items,n){var per=Math.ceil(items.length/n),out=[];for(var i=0;i<n;i++){var part=items.slice(i*per,(i+1)*per);if(part.length)out.push(part)}return out}
-  function set(items){var d=document.createElement("div");d.className="sk-set";items.forEach(function(t){var c=document.createElement("span");c.className="sk-chip";c.textContent=t;d.appendChild(c)});return d}
+  function arrow(label,txt){var b=document.createElement("button");b.type="button";b.className="sk-arrow";b.setAttribute("aria-label",label);b.textContent=txt;return b}
+  function row(part){
+    var r=document.createElement("div");r.className="sk-row";
+    var prev=arrow("Scroll left","‹"),next=arrow("Scroll right","›"),sc=document.createElement("div");sc.className="sk-scroll";
+    part.forEach(function(t){var c=document.createElement("span");c.className="sk-chip";c.textContent=t;sc.appendChild(c)});
+    function upd(){prev.disabled=sc.scrollLeft<=1;next.disabled=sc.scrollLeft+sc.clientWidth>=sc.scrollWidth-1}
+    prev.addEventListener("click",function(){sc.scrollBy({left:-sc.clientWidth*.8})});
+    next.addEventListener("click",function(){sc.scrollBy({left:sc.clientWidth*.8})});
+    sc.addEventListener("scroll",upd,{passive:true});
+    r.append(prev,sc,next);rows.appendChild(r);upd();return upd;
+  }
+  var upds=[];
   function build(){
     var items=cur<0?all:groups[cur].items,n=cur<0?4:(items.length>3?2:1);
-    meta.textContent=(cur<0?"All skills":groups[cur].name)+" · "+items.length+" · hover to pause";
-    rows.textContent="";
-    split(items,n).forEach(function(part,i){
-      var row=document.createElement("div");row.className="sk-row"+(i%2===0?" rev":"");
-      var track=document.createElement("div");track.className="sk-track";row.appendChild(track);rows.appendChild(row);
-      var first=set(part);track.appendChild(first);
-      if(reduce)return;
-      var w=first.offsetWidth,need=Math.ceil(row.clientWidth/w)+1;
-      for(var k=0;k<need;k++){var c=set(part);c.setAttribute("aria-hidden","true");track.appendChild(c)}
-      track.style.setProperty("--w",w+"px");track.style.setProperty("--d",Math.max(12,w/45)+"s");
-    });
+    meta.textContent=(cur<0?"All skills":groups[cur].name)+" · "+items.length;
+    rows.textContent="";upds=split(items,n).map(row);upds.forEach(function(u){u()});
   }
   function select(i){
     cur=i;[].forEach.call(tabs.children,function(b,k){b.setAttribute("aria-pressed",String(k-1===i))});build();
@@ -505,8 +506,7 @@ footer{padding:28px 0 48px;display:flex;justify-content:space-between;gap:12px;f
   });
   dl.replaceWith(tabs,meta,rows);
   select(-1);
-  var lastW=rows.clientWidth,t;
-  addEventListener("resize",function(){clearTimeout(t);t=setTimeout(function(){if(rows.clientWidth!==lastW){lastW=rows.clientWidth;build()}},200)});
+  addEventListener("resize",function(){upds.forEach(function(u){u()})});
 })();
 </script>
 </body>
