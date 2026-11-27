@@ -39,7 +39,7 @@ a{color:inherit}
 header.nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:15px}
-.brand .mark{width:30px;height:30px;border-radius:8px;background:var(--accent);color:var(--bg);display:grid;place-items:center;font-family:var(--mono);font-size:12px;font-weight:500}
+.brand .mark{width:32px;height:32px;border-radius:50%;object-fit:cover;display:block;border:1px solid var(--line)}
 .nav nav{display:flex;align-items:center;gap:6px}
 .nav nav a{font-size:14px;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:8px}
 .nav nav a:hover{color:var(--ink)}
@@ -208,7 +208,7 @@ footer{padding:28px 0 48px;display:flex;justify-content:space-between;gap:12px;f
 <body>
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="index.html"><span class="mark">bk</span>Bhargava Koya</a>
+    <a class="brand" href="index.html"><img class="mark" src="assets/bhargava.jpg" alt="" width="32" height="32">Bhargava Koya</a>
     <nav aria-label="Primary">
       <a class="hide-sm" href="index.html#work">Work</a>
       <a class="hide-sm" href="blog.html" aria-current="page" style="color:var(--ink)">Blog</a>
