@@ -128,6 +128,12 @@ h1 em{font-style:normal;color:var(--accent)}
 .detail p{color:var(--muted);max-width:60ch;margin:0 0 14px}
 .detail .tags{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 24px}
 .detail .links{display:flex;flex-wrap:wrap;gap:10px}
+.yt{position:relative;display:block;width:100%;max-width:720px;aspect-ratio:16/9;margin:20px 0 4px;padding:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#000;cursor:pointer}
+.yt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9;transition:opacity .2s}
+.yt:hover img{opacity:1}
+.yt::after{content:"";position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M9 6.5v11l9-5.5z'/%3E%3C/svg%3E") center/32px no-repeat;box-shadow:0 4px 18px rgba(0,0,0,.4)}
+.yt.on::after{display:none}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .pill{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:6px;background:var(--accent-soft);color:var(--accent);margin-right:6px}
 .points{margin:0 0 6px;padding:0;list-style:none;display:grid;gap:8px;max-width:60ch}
 .points li{padding-left:18px;position:relative;color:var(--muted)}
@@ -359,6 +365,7 @@ footer{padding:28px 0 48px;display:flex;justify-content:space-between;gap:12px;f
      title:"JobScheduler",
      body:["Job scheduling and orchestration with fixed, cron and event-based schedules, queued pipelines, retries and claim-based access."],
      tags:["C#",".NET","Queues","Retries"],
+     video:"96mlakVsfT0",
      links:[["View repository",GH+"JobScheduler"],["Watch the walkthrough","https://youtu.be/96mlakVsfT0"]]},
     {n:"03",id:"DocWorkflowAiAssistant",kind:"AI",stack:".NET 8 / React",
      title:"DocWorkflowAiAssistant",
@@ -427,8 +434,16 @@ footer{padding:28px 0 48px;display:flex;justify-content:space-between;gap:12px;f
       '<span class="mono">'+p.n+' / '+String(projects.length).padStart(2,"0")+' · '+esc(p.kind)+'</span>'+
       '<h2>'+esc(p.title)+'</h2>'+
       p.body.map(function(t){return '<p>'+esc(t)+'</p>'}).join('')+
+      (p.video?'<button class="yt" type="button" data-id="'+p.video+'" aria-label="Play the '+esc(p.title)+' walkthrough video"><img src="https://i.ytimg.com/vi/'+p.video+'/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"></button>':'')+
       '<div class="tags">'+p.tags.map(function(t){return '<span class="chip">'+esc(t)+'</span>'}).join('')+'</div>'+
       '<div class="links">'+p.links.map(function(l,k){return '<a class="btn'+(k===0?' primary':'')+'" href="'+l[1]+'">'+esc(l[0])+' ↗</a>'}).join('')+'</div>';
+    var yt=detail.querySelector(".yt");
+    if(yt)yt.addEventListener("click",function(){
+      var f=document.createElement("iframe");
+      f.src="https://www.youtube-nocookie.com/embed/"+yt.dataset.id+"?autoplay=1&rel=0";
+      f.title=p.title+" walkthrough";f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.allowFullscreen=true;
+      yt.textContent="";yt.classList.add("on");yt.appendChild(f);
+    });
   }
   select(0);
 
